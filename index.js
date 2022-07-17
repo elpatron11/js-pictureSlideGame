@@ -11,7 +11,7 @@ centerDiv.style.justifyContent="center";
 centerDiv.style.width="500px"
 centerDiv.style.height="500px"
 centerDiv.style.margin="150px"
-
+let count=0;
 // Create matrix for grids
 //Add borders to grids,
 //display flex to make squars
@@ -22,17 +22,18 @@ centerDiv.style.margin="150px"
 //Creates the columns and rows using loops, assigns a dinamic name to each column and row.
 function creatingGrid(){
 
-    for(let i=0, vertical=0; i<3; i++ , vertical=-100){
+    for(let i=0, vertical=0; i<3; i++ , vertical= vertical-100){
         const column =document.createElement("div");
         column.id=`column-${i}`
         root.appendChild(column);
-            // column.style.border="1px solid black";
         column.style.width="300";
         column.style.height="300";
+        
 
-    for(let j=0, horizontal= 0 ; j<3; j++, horizontal =+100)
+    for(let j=0, horizontal= 0 ; j<3; j++, horizontal = horizontal -100)
         {
-
+        
+        count++;
         const row= document.createElement("div");
         row.id =`${i}-${j}`;
         column.appendChild(row);
@@ -41,16 +42,39 @@ function creatingGrid(){
         row.style.height="100px";
         row.style.width="100px";
         row.style.backgroundImage= 'url("./cat1.png")';
-        row.style.backgroundPositionX= `${vertical}` + "px";
-        row.style.backgroundPositionY= `${horizontal}` + "px";
-        root.style.backgroundRepeat="no-repeat";
+        row.style.backgroundPosition= `${vertical}` + "px" +" "+ `${horizontal}` + "px"
         row.style.backgroundSize="300px 300px"
-        console.log(vertical,horizontal)
+        console.log(vertical,horizontal);
+        let globalArray=[];
+        globalArray[count]= `${vertical}` + "px" +" "+ `${horizontal}` + "px";
+        console.log(globalArray[count])
+         // row.style.backgroundPositionX= `${vertical}` + "px";
+        // row.style.backgroundPositionY= `${horizontal}` + "px";
+    //     let obj={ globalposition ="value"}
+    //    obj.globalposition= "1";
+        // let obj= { }
+        // obj.count= `${vertical}` + "px" + `${horizontal}`+ "px";
+        // obj.globalPositionX= `${vertical}`+ "px"
+        // obj.globalPositionY= `${horizontal}`+ "px"
+        // console.log(obj);
+        // console.log(count); 
+        // const positionArrayX=[];
+        // positionArrayX[i]= "vertical";
+        // console.log(positionArrayX)
+        // const positionArrayY=[];
+        // positionArrayY[j]="horizontal"
+        // console.log(positionArrayY)
         }
     }
 // return array =[`${i}-${j}`];
 }
 const grid = creatingGrid();
+
+function shuffle(){
+    
+
+}
+
 
 
 
