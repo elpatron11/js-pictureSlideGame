@@ -9,11 +9,14 @@ centerDiv.style.display="flex";
 centerDiv.style.alignItems="center";
 centerDiv.style.justifyContent="center";
 centerDiv.style.width="500px"
-centerDiv.style.height="500px"
+centerDiv.style.height="200px"
 centerDiv.style.margin="150px"
 let count=0;
 let globalArray=[];
 let shuffleArray=[];
+let shuffleB= true;
+
+
 // Create matrix for grids
 //Add borders to grids,
 //display flex to make squars
@@ -22,7 +25,7 @@ let shuffleArray=[];
 // root.style.justifyContent="center"
 
 //Creates the columns and rows using loops, assigns a dinamic name to each column and row.
-function creatingGrid(){
+function creatingGrid(shuffleB){
 
     for(let i=0, vertical=0; i<3; i++ , vertical= vertical-100){
         const column =document.createElement("div");
@@ -39,6 +42,7 @@ function creatingGrid(){
         const row= document.createElement("div");
         row.id =`${i}-${j}`;
         column.appendChild(row);
+        
         row.textContent=`${row.id}`
         row.style.border="1px solid black"
         row.style.height="100px";
@@ -46,11 +50,10 @@ function creatingGrid(){
         row.style.backgroundImage= 'url("./cat1.png")';
         row.style.backgroundPosition= `${vertical}` + "px" +" "+ `${horizontal}` + "px"
         row.style.backgroundSize="300px 300px"
+        globalArray[count]= `${vertical}` + "px" +" "+ `${horizontal}` + "px";
+        shuffleArray[count] =globalArray[count]
         console.log(vertical,horizontal);
         
-        globalArray[count]= `${vertical}` + "px" +" "+ `${horizontal}` + "px";
-         
-        shuffleArray[count] =globalArray[count];
         // console.log(globalArray[count])
             
 
@@ -73,10 +76,20 @@ function creatingGrid(){
         // console.log(positionArrayY)
         }
     }
-return globalArray;
+
+    // const newcolumn = document.getElementById("0-0")
+    // newcolumn.textContent="Raul"
+    // console.log(newcolumn.textContent)
+//     if(shuffleB)
+// {
+//     console.log("shuffle")
+
+// }
 }
-let grid = creatingGrid();
+creatingGrid();
 shuffle();
+fixShuffleGrid()
+
 function shuffle(){
     
     for(let i=1; i<10;i++)
@@ -104,10 +117,27 @@ function shuffle(){
     }
     for(let j=1; j<10;j++)
         console.log(shuffleArray[j])
+        shuffleArray[9]="200px 200px"
 }
 
+ function fixShuffleGrid(){
+    let counter=0;
+    for(let i=0;i<3;i++)
+        for(let j=0;j<3;j++)
+          {
+            counter++;
+             const newcolumn = document.getElementById(`${i}-${j}`)
+             newcolumn.style.backgroundPosition = shuffleArray[counter]
+             console.log(newcolumn.textContent)
+          } 
+ }
 
 
+
+
+
+
+// createShuffleGrid();
 
 // const imagepiece = document.querySelector("#0-0")
 // imagepiece.style.backgroundImage= 'url("./cat1.png")';
