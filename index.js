@@ -12,6 +12,8 @@ centerDiv.style.width="500px"
 centerDiv.style.height="500px"
 centerDiv.style.margin="150px"
 let count=0;
+let globalArray=[];
+let shuffleArray=[];
 // Create matrix for grids
 //Add borders to grids,
 //display flex to make squars
@@ -45,9 +47,14 @@ function creatingGrid(){
         row.style.backgroundPosition= `${vertical}` + "px" +" "+ `${horizontal}` + "px"
         row.style.backgroundSize="300px 300px"
         console.log(vertical,horizontal);
-        let globalArray=[];
+        
         globalArray[count]= `${vertical}` + "px" +" "+ `${horizontal}` + "px";
-        console.log(globalArray[count])
+         
+        shuffleArray[count] =globalArray[count];
+        // console.log(globalArray[count])
+            
+
+
          // row.style.backgroundPositionX= `${vertical}` + "px";
         // row.style.backgroundPositionY= `${horizontal}` + "px";
     //     let obj={ globalposition ="value"}
@@ -66,13 +73,37 @@ function creatingGrid(){
         // console.log(positionArrayY)
         }
     }
-// return array =[`${i}-${j}`];
+return globalArray;
 }
-const grid = creatingGrid();
-
+let grid = creatingGrid();
+shuffle();
 function shuffle(){
     
+    for(let i=1; i<10;i++)
+    {
+    let randomnum =0 ;
+    let randomnum2 =0 ;
+    // randomnum= Math.floor(Math.random()*10);
+    // console.log(randomnum);
+    console.log(globalArray[i]);
+    console.log(shuffleArray[i]);
+    while (randomnum == 0 || randomnum2 == 0){
+        randomnum= Math.floor(Math.random()*10);
+        randomnum2= Math.floor(Math.random()*10);
+    }
+        console.log(randomnum);
+        console.log(randomnum2);
 
+        // const swapPositions = (array, a, b) => {
+    [shuffleArray[randomnum], shuffleArray[randomnum2]] = [shuffleArray[randomnum2], shuffleArray[randomnum]];
+        // }
+
+        // const array = [1, 2, 3, 4, 5];
+        // swapPositions(array, 0, 1);
+        // console.log(array)
+    }
+    for(let j=1; j<10;j++)
+        console.log(shuffleArray[j])
 }
 
 
