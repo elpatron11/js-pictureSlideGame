@@ -16,6 +16,7 @@ centerDiv.style.margin="150px"
 let count=0;
 let globalArray=[];
 let shuffleArray=[];
+let positionWith0= null;
 // let shuffleB= true;
 
 
@@ -38,76 +39,83 @@ function creatingGrid(){
         
     //This loop keeps track of the position we will set for each background image. So every time it runes the position 
     // well be changed by 100px to the left. The variable is horizontal.
-    for(let j=0, horizontal= 0 ; j<3; j++, horizontal = horizontal -100)
+        for(let j=0, horizontal= 0 ; j<3; j++, horizontal = horizontal -100)
         {
         
-        count++;//this counter will help us number each div to later save the position in a global array.
-        const row= document.createElement("div");  //we will create 3 divs rows inside each div column and later apply flex.
-        row.id =`${i}-${j}`; // this will be the dinamic name for each grid so everyone has a different name.
-        column.appendChild(row);  //Adding the rows 3 times to each column.
-        row.textContent=`${row.id}` //this text content will display the div id name as a text to keep track.
-        row.style.border="1px solid black"  //this will create the border with solid thin back line.
-        row.style.height="100px"; // the size of each square will be 100x100 so when its done it will be 300x300.
-        row.style.width="100px";
-        
-        // This condition means that when we get to the ninth loop we will leave a square empty so we can then move
-        //towards this square to align the imagine in the futue.
-        if(count !== 9)  
-        {
-        row.style.backgroundImage= 'url("./cat1.png")'; //we will use this image as a background
-        row.style.backgroundPosition= `${vertical}` + "px" +" "+ `${horizontal}` + "px"
-        //  with vertical and horizontal we move
-        // -100px in the x axis and -100 in the y axis so we can simulate that we see the same 
-        // image as a backgroun when we are actually watching the image in 300px x 300px 9 times in different position.
-       
-        row.style.backgroundSize="300px 300px" //we set the image to be 300x300 even when the square size is really 100px
-        globalArray[count]= `${vertical}` + "px" +" "+ `${horizontal}` + "px"; //in this global array we will save the position
-        //for tha background image.
-        }
-        
-        else{
-            row.style.backgroundPosition="0";
-            row.style.backgroundSize="300px 300px";
-            globalArray[count]="0";
-        }
+            count++;//this counter will help us number each div to later save the position in a global array.
+            const row= document.createElement("div");  //we will create 3 divs rows inside each div column and later apply flex.
+            row.id =`${i}-${j}`; // this will be the dinamic name for each grid so everyone has a different name.
+            column.appendChild(row);  //Adding the rows 3 times to each column.
+            row.textContent=`${row.id}` //this text content will display the div id name as a text to keep track.
+            row.style.border="1px solid black"  //this will create the border with solid thin back line.
+            row.style.height="100px"; // the size of each square will be 100x100 so when its done it will be 300x300.
+            row.style.width="100px";
+            
+            // This condition means that when we get to the ninth loop we will leave a square empty so we can then move
+            //towards this square to align the imagine in the futue.
+            if(count !== 9)  
+                {
+                    row.style.backgroundImage= 'url("./cat1.png")'; //we will use this image as a background
+                    row.style.backgroundPosition= `${vertical}` + "px" +" "+ `${horizontal}` + "px"
+            //  with vertical and horizontal we move
+            // -100px in the x axis and -100 in the y axis so we can simulate that we see the same 
+            // image as a backgroun when we are actually watching the image in 300px x 300px 9 times in different position.
+            
+                    row.style.backgroundSize="300px 300px" //we set the image to be 300x300 even when the square size is really 100px
+                    globalArray[count]= `${vertical}` + "px" +" "+ `${horizontal}` + "px"; //in this global array we will save the position
+            //for tha background image.
+                }
+
+            else{
+                row.style.backgroundPosition="0";
+                row.style.backgroundSize="300px 300px";
+                globalArray[count]="0";
+            }
 
 
         shuffleArray[count] =globalArray[count]
         // console.log(vertical,horizontal);
         
         console.log(globalArray[count])
-     }
+        }
     }
 
 
 }
-creatingGrid();
-shuffle();
-fixShuffleGrid()
 
 //This function will suffle the array of the background image poistions and save it in another array to alter use.
 function shuffle(){
     
     for(let i=1; i<10;i++) // This loop will run a set amount of times to swap the arrays.
     {
-    let randomnum =0 ;
-    let randomnum2 =0 ; //We use this to make sure the number generated is from 1-9 only because our array is from 1-9
+        let randomnum =0 ;
+        let randomnum2 =0 ; //We use this to make sure the number generated is from 1-9 only because our array is from 1-9
     // console.log(globalArray[i]);
     // console.log(shuffleArray[i]);
-    while (randomnum == 0 || randomnum2 == 0){ //while this is runing the random index numbers will never be 0.
-        randomnum= Math.floor(Math.random()*10);
-        randomnum2= Math.floor(Math.random()*10); //this generates 2 different numbers from 1-9 to use as index.
-    }
+        while (randomnum == 0 || randomnum2 == 0){ //while this is runing the random index numbers will never be 0.
+             randomnum= Math.floor(Math.random()*10);
+             randomnum2= Math.floor(Math.random()*10); //this generates 2 different numbers from 1-9 to use as index.
+        }
         // console.log(randomnum);
         // console.log(randomnum2);
 
         //Now we will swap two background image position in the same array to change its value and save in the shuffle array.
-    [shuffleArray[randomnum], shuffleArray[randomnum2]] = [shuffleArray[randomnum2], shuffleArray[randomnum]];
+        [shuffleArray[randomnum], shuffleArray[randomnum2]] = [shuffleArray[randomnum2], shuffleArray[randomnum]];
       
     }
 
     for(let j=1; j<10;j++)
+    {
         console.log(shuffleArray[j]) 
+        if (shuffleArray[j] === "0")
+            {
+                positionWith0= j;
+                
+            }
+            else
+              {};
+              
+    }   
         // shuffleArray[9]="200px 200px"
 }
 
@@ -137,35 +145,95 @@ function shuffle(){
           } 
  }
 
+//   const buttonDiv = document.getElementById("selectdiv")
+  document.addEventListener("click", (e)=>{
+        const capturedDiv = e.target.style.backgroundPosition;
+        const capturedId = e.target.id;
+        let emptyElementIdX;
+        let emptyElementIdY;
+        let emptyElementId;
+        let counter= 0;
 
+        const capturedIdXS= capturedId.charAt(0);
+        const capturedIdYS= capturedId.charAt(2);
+         const  capturedIdX = parseInt(capturedIdXS);
+         const  capturedIdY = parseInt(capturedIdYS);
+        // console.log(typeof(capturedIdXS) , capturedIdYS,capturedIdX, typeof(capturedIdY ))
 
+        for(let i=0;i<3;i++)
+           { for(let j=0;j<3;j++)
+                {   
+                    counter++;
+                    if(counter === positionWith0)
+                        {
+                             emptyElementIdX=i;
+                             emptyElementIdY=j;
+                             emptyElementId=`${i}-${j}`
+                            
+                        }
+                }
+            }
+         const swap=  compareIfAdjacentToEmpty(capturedIdX,capturedIdY, emptyElementIdX, emptyElementIdY )
+         if (swap)
+         { swapAdjacentEmpty(capturedId, emptyElementId, capturedDiv, emptyElementIdX,emptyElementIdY);
+            
+        
+            }
+        // console.log(capturedDiv)
+        // console.log(capturedId)
+        // console.log(emptyElementIdX)
+        // console.log(emptyElementIdY)
+        
+ })
 
+function compareIfAdjacentToEmpty(x ,y, emptyX, emptyY){
+    let swap =false; 
+   if(x+1 === emptyX && y===emptyY  )
+        { console.log("move to the right");
+            swap=true;
+    }
+   else if(x-1 === emptyX && y===emptyY  )
+            {console.log("move to the left");
+        swap=true;}
+    else if(x=== emptyX && y+1===emptyY  )
+            {console.log("move down");
+        swap=true;    }
+    else if(x === emptyX && y-1===emptyY  )
+            {console.log("move to the up");
+        swap=true;       }
 
+return swap;
 
-// createShuffleGrid();
+}
 
-// const imagepiece = document.querySelector("#0-0")
-// imagepiece.style.backgroundImage= 'url("./cat1.png")';
-// imagepiece.style.width="100px";
-// imagepiece.style.height="100px";
+ function swapAdjacentEmpty(id, emptyId, idPosition, x , y){
 
-// //function to take a picture and split in 9 parts
-// function split image(){
+    const divId = document.getElementById(id)
+    divId.style.backgroundPosition = "0";
+    divId.style.backgroundImage= '';
+    const emptyDivId= document.getElementById(emptyId)
+    emptyDivId.style.backgroundPosition = idPosition; 
+    emptyDivId.style.backgroundImage= 'url("./cat1.png")';
+    let counter3=0;
+    // console.log(divId, emptyDivId)
+    for(let i=0; i<3;i++)
+   { for(let j=0; j<3;j++)
+    {
+         counter3++
+         
+         console.log(id)
+        if (`${i}-${j}`=== id)
+            {
+                positionWith0= counter3;
+                console.log(positionWith0)
+            }
+            else
+              {};
+              
+    }   }
+   
+}
 
-
-// }
-
-
-// //function to assign a div column/row to each part of the image.
-// function assignPeace(){
-
-
-// }
-
-
-
-// //function to suffle image 
-// function shuffle(){
-
-// }
-
+creatingGrid();
+shuffle();
+fixShuffleGrid();
