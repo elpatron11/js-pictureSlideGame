@@ -30,6 +30,29 @@ const lastRecord = document.createElement("label")
 lastRecord.textContent= `Last Record: ${previousRecord}`
 lastRecord.style.padding="1em"
 document.getElementById("Labels").appendChild(lastRecord);
+
+
+const dropDown = document.getElementById("picture");
+// const picturePicked = dropDown.options[dropDown.selectedIndex].value;
+let picturePicked = dropDown.options[dropDown.selectedIndex].value;
+
+
+// async function newSelection(){
+//     const dropDown1 =document.getElementById("picture");
+//     const picturePick =await dropDown1.options[dropDown1.selectedIndex].value;
+//     console.log("works")
+//     return picturePick
+// }
+// newSelection()
+
+document.addEventListener("change", (e)=>{
+
+console.log(`e.target.value = ${ e.target.value }`);
+picturePicked = e.target.value;
+restartGame()
+})
+
+console.log(picturePicked)
 // Create matrix for grids
 //Add borders to grids,
 //display flex to make squars
@@ -60,12 +83,12 @@ function creatingGrid(){
             row.style.border="1px solid black"  //this will create the border with solid thin back line.
             row.style.height="100px"; // the size of each square will be 100x100 so when its done it will be 300x300.
             row.style.width="100px";
-            
+            //'url("./assets/cat1.png")'
             // This condition means that when we get to the ninth loop we will leave a square empty so we can then move
             //towards this square to align the imagine in the futue.
             if(count !== 9)  
                 {
-                    row.style.backgroundImage= 'url("./assets/cat1.png")'; //we will use this image as a background
+                    row.style.backgroundImage= picturePicked; //we will use this image as a background
                     row.style.backgroundPosition= `${vertical}` + "px" +" "+ `${horizontal}` + "px"
             //  with vertical and horizontal we move
             // -100px in the x axis and -100 in the y axis so we can simulate that we see the same 
@@ -141,7 +164,7 @@ function shuffle(){
 
              if(shuffleArray[counter1] !== "0") //we need to make sure the empty div doesnt have the back image.
              {  
-                newcolumn.style.backgroundImage= 'url("./assets/cat1.png")'; // Set background image again in case this was an empty square.
+                newcolumn.style.backgroundImage= picturePicked; // Set background image again in case this was an empty square.
                 // newcolumn.style.backgroundSize="300px 300px"
                 newcolumn.style.backgroundPosition = shuffleArray[counter1]
             }
@@ -225,7 +248,7 @@ return swap; //
     divId.style.backgroundImage= ''; // this will remove the image and empty the div.
     const emptyDivId= document.getElementById(emptyId) //to select the empty div so we can add the image corresponding
     emptyDivId.style.backgroundPosition = idPosition; //We add the idPosition sent from the image clicked and apply to the div.
-    emptyDivId.style.backgroundImage= 'url("./assets/cat1.png")';// We need to select the image we are working with.
+    emptyDivId.style.backgroundImage= picturePicked;// We need to select the image we are working with.
     let counter3=0;
     let counter4=0;
     // console.log(divId, emptyDivId)
@@ -281,18 +304,31 @@ buttonDiv.addEventListener("click", ()=>{
 
 const restartB = document.getElementById("restartB") //Get button for restarting the game
 restartB.addEventListener("click", ()=>{
- count=0;
- for(let i=1; i<10; i++) //we refill the shuffel with the default positions saved in the global array
-   {shuffleArray[i]=globalArray[i];}
-   fixShuffleGrid();
-positionWith0= 0; //reset all global variables to restart the game
-numberOfMoves=0;
-numberMoves.textContent= `Number of moves: ${numberOfMoves}`//Update new number of moves to 0 in browser. Since we are restarting
-buttonDiv.textContent="Start Over"; // Change the display test of the shuffle button to "Start Over" once its clicked.
+restartGame()
 })
-creatingGrid();
+
+
+function restartGame()
+{
+    count=0;
+    for(let i=1; i<10; i++) //we refill the shuffel with the default positions saved in the global array
+    {
+        shuffleArray[i]=globalArray[i];
+    }
+    fixShuffleGrid();
+    positionWith0= 0; //reset all global variables to restart the game
+    numberOfMoves=0;
+    numberMoves.textContent= `Number of moves: ${numberOfMoves}`//Update new number of moves to 0 in browser. Since we are restarting
+    buttonDiv.textContent="Start Over"; // Change the display test of the shuffle button to "Start Over" once its clicked.
+}
+// async function startGame(){
+
+//   const picturePicked1=  await picturePicked
+//   creatingGrid();
+// }
+// creatingGrid();
 
 // shuffle();
 // fixShuffleGrid();
 
-// creatingGrid();
+creatingGrid();
