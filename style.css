@@ -4,7 +4,7 @@ background-color: #cccccc;
 } */
 
 h1 {
-    color:aqua;
+    color:rgb(18, 12, 73);
     text-align: center;
 }
 
@@ -21,20 +21,28 @@ button {
     background-color: green;
 }
 
-#Labels{
+#Labels {
 
         display: flex;
+        
         padding: 1em;
         align-items: center;
         justify-content: center;
         align-content: center;
-        margin: 1em;
-        /* background-color: red; */
+        /* margin: 50px; */
+        background-color: red;
         /* border: 1em bold red; */
         border-radius: round;
 }
-
+/* 
 #wholeGrid{
 
             padding-top: -500px;
+} */
+
+body{
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    padding:1em;
 }

@@ -1,3 +1,4 @@
+
 //Asign created divs and containers.
 const centerDiv=document.querySelector("#centerAlign");
 const root = document.querySelector("#wholeGrid");
@@ -8,9 +9,9 @@ root.style.flexDirection="row";
 centerDiv.style.display="flex";
 centerDiv.style.alignItems="center";
 centerDiv.style.justifyContent="center";
-centerDiv.style.width="500px"
-centerDiv.style.height="200px"
-centerDiv.style.margin="150px"
+// centerDiv.style.width="500px"
+// centerDiv.style.height="200px"
+// centerDiv.style.margin="150px"
 
 //Declare global variables to save position if image and later shuffle this.
 let count=0;
@@ -18,11 +19,17 @@ let globalArray=[];
 let shuffleArray=[];
 let positionWith0= null;
 let numberOfMoves=0;
+let previousRecord=0; 
 // let shuffleB= true;
 const numberMoves = document.createElement("label")
 numberMoves.textContent= `Number of moves: ${numberOfMoves}`
+numberMoves.style.padding="1em"
 document.getElementById("Labels").appendChild(numberMoves);
 
+const lastRecord = document.createElement("label")
+lastRecord.textContent= `Last Record: ${previousRecord}`
+lastRecord.style.padding="1em"
+document.getElementById("Labels").appendChild(lastRecord);
 // Create matrix for grids
 //Add borders to grids,
 //display flex to make squars
@@ -49,7 +56,7 @@ function creatingGrid(){
             const row= document.createElement("div");  //we will create 3 divs rows inside each div column and later apply flex.
             row.id =`${i}-${j}`; // this will be the dinamic name for each grid so everyone has a different name.
             column.appendChild(row);  //Adding the rows 3 times to each column.
-            row.textContent=`${row.id}` //this text content will display the div id name as a text to keep track.
+            // row.textContent=`${count}` //this text content will display the div id name as a text to keep track.
             row.style.border="1px solid black"  //this will create the border with solid thin back line.
             row.style.height="100px"; // the size of each square will be 100x100 so when its done it will be 300x300.
             row.style.width="100px";
@@ -58,7 +65,7 @@ function creatingGrid(){
             //towards this square to align the imagine in the futue.
             if(count !== 9)  
                 {
-                    row.style.backgroundImage= 'url("./cat1.png")'; //we will use this image as a background
+                    row.style.backgroundImage= 'url("./assets/cat1.png")'; //we will use this image as a background
                     row.style.backgroundPosition= `${vertical}` + "px" +" "+ `${horizontal}` + "px"
             //  with vertical and horizontal we move
             // -100px in the x axis and -100 in the y axis so we can simulate that we see the same 
@@ -134,7 +141,7 @@ function shuffle(){
 
              if(shuffleArray[counter1] !== "0") //we need to make sure the empty div doesnt have the back image.
              {  
-                newcolumn.style.backgroundImage= 'url("./cat1.png")'; // Set background image again in case this was an empty square.
+                newcolumn.style.backgroundImage= 'url("./assets/cat1.png")'; // Set background image again in case this was an empty square.
                 // newcolumn.style.backgroundSize="300px 300px"
                 newcolumn.style.backgroundPosition = shuffleArray[counter1]
             }
@@ -218,7 +225,7 @@ return swap; //
     divId.style.backgroundImage= ''; // this will remove the image and empty the div.
     const emptyDivId= document.getElementById(emptyId) //to select the empty div so we can add the image corresponding
     emptyDivId.style.backgroundPosition = idPosition; //We add the idPosition sent from the image clicked and apply to the div.
-    emptyDivId.style.backgroundImage= 'url("./cat1.png")';// We need to select the image we are working with.
+    emptyDivId.style.backgroundImage= 'url("./assets/cat1.png")';// We need to select the image we are working with.
     let counter3=0;
     let counter4=0;
     // console.log(divId, emptyDivId)
@@ -247,6 +254,9 @@ return swap; //
                 if(counter4 === 8)
                     {
                         console.log("You win.")
+                        window.alert(`Congratulations after ${numberOfMoves} attempts you finally won`);
+                        previousRecord = numberOfMoves;
+                        lastRecord.textContent= `Last Record: ${previousRecord}`
                     }
             }
              
@@ -268,6 +278,21 @@ buttonDiv.addEventListener("click", ()=>{
             numberMoves.textContent= `Number of moves: ${numberOfMoves}`//Update new number of moves.
         }
 })
+
+const restartB = document.getElementById("restartB") //Get button for restarting the game
+restartB.addEventListener("click", ()=>{
+ count=0;
+ for(let i=1; i<10; i++) //we refill the shuffel with the default positions saved in the global array
+   {shuffleArray[i]=globalArray[i];}
+   fixShuffleGrid();
+positionWith0= 0; //reset all global variables to restart the game
+numberOfMoves=0;
+numberMoves.textContent= `Number of moves: ${numberOfMoves}`//Update new number of moves to 0 in browser. Since we are restarting
+buttonDiv.textContent="Start Over"; // Change the display test of the shuffle button to "Start Over" once its clicked.
+})
 creatingGrid();
+
 // shuffle();
 // fixShuffleGrid();
+
+// creatingGrid();
