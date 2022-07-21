@@ -10,7 +10,31 @@ h1 {
 
 button {
 
-   width: 100px;
-   height:25px;
-      
+    width: 100px;
+     height:25px;
+    border-radius: round;
+    display: inline-block;
+    
+    align-items: center;
+    align-content: center;
+    margin: 1em;
+    background-color: green;
+}
+
+#Labels{
+
+        display: flex;
+        padding: 1em;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        margin: 1em;
+        /* background-color: red; */
+        /* border: 1em bold red; */
+        border-radius: round;
+}
+
+#wholeGrid{
+
+            padding-top: -500px;
 }

@@ -17,8 +17,11 @@ let count=0;
 let globalArray=[];
 let shuffleArray=[];
 let positionWith0= null;
+let numberOfMoves=0;
 // let shuffleB= true;
-
+const numberMoves = document.createElement("label")
+numberMoves.textContent= `Number of moves: ${numberOfMoves}`
+document.getElementById("Labels").appendChild(numberMoves);
 
 // Create matrix for grids
 //Add borders to grids,
@@ -85,7 +88,7 @@ function creatingGrid(){
 
 //This function will suffle the array of the background image poistions and save it in another array to alter use.
 function shuffle(){
-    
+     
     for(let i=1; i<10;i++) // This loop will run a set amount of times to swap the arrays.
     {
         let randomnum =0 ;
@@ -153,18 +156,18 @@ function shuffle(){
         let emptyElementIdY;
         let emptyElementId;
         let counter= 0;
-
         const capturedIdXS= capturedId.charAt(0);
         const capturedIdYS= capturedId.charAt(2);
          const  capturedIdX = parseInt(capturedIdXS);
          const  capturedIdY = parseInt(capturedIdYS);
+         
         // console.log(typeof(capturedIdXS) , capturedIdYS,capturedIdX, typeof(capturedIdY ))
 
         for(let i=0;i<3;i++)
            { for(let j=0;j<3;j++)
                 {   
                     counter++;
-                    if(counter === positionWith0)
+                    if(counter === positionWith0)//This loop is to get the poistion with 0 but in terms of x(i),y(j)
                         {
                              emptyElementIdX=i;
                              emptyElementIdY=j;
@@ -176,8 +179,10 @@ function shuffle(){
          const swap=  compareIfAdjacentToEmpty(capturedIdX,capturedIdY, emptyElementIdX, emptyElementIdY )
          if (swap)
          { swapAdjacentEmpty(capturedId, emptyElementId, capturedDiv, emptyElementIdX,emptyElementIdY);
+            numberOfMoves++; // will start keeping track everytime you swap between divs.
+            numberMoves.textContent= `Number of moves: ${numberOfMoves}` // This will update the label with number of moves.
+             console.log(numberOfMoves)
             
-        
             }
         // console.log(capturedDiv)
         // console.log(capturedId)
@@ -185,10 +190,10 @@ function shuffle(){
         // console.log(emptyElementIdY)
         
  })
-
+//compares if the div selected by click is next to the empty grid so then it can sap or move it.
 function compareIfAdjacentToEmpty(x ,y, emptyX, emptyY){
     let swap =false; 
-   if(x+1 === emptyX && y===emptyY  )
+   if(x+1 === emptyX && y===emptyY  ) //This checks for the adjacent divs. 
         { console.log("move to the right");
             swap=true;
     }
@@ -202,38 +207,67 @@ function compareIfAdjacentToEmpty(x ,y, emptyX, emptyY){
             {console.log("move to the up");
         swap=true;       }
 
-return swap;
+return swap; //
 
 }
-
+//This function gives the order to swap the two divs.
  function swapAdjacentEmpty(id, emptyId, idPosition, x , y){
 
-    const divId = document.getElementById(id)
-    divId.style.backgroundPosition = "0";
-    divId.style.backgroundImage= '';
-    const emptyDivId= document.getElementById(emptyId)
-    emptyDivId.style.backgroundPosition = idPosition; 
-    emptyDivId.style.backgroundImage= 'url("./cat1.png")';
+    const divId = document.getElementById(id)// First we get the id for the div selected
+    divId.style.backgroundPosition = "0";// we will make this div the empty one and mark with a 0 
+    divId.style.backgroundImage= ''; // this will remove the image and empty the div.
+    const emptyDivId= document.getElementById(emptyId) //to select the empty div so we can add the image corresponding
+    emptyDivId.style.backgroundPosition = idPosition; //We add the idPosition sent from the image clicked and apply to the div.
+    emptyDivId.style.backgroundImage= 'url("./cat1.png")';// We need to select the image we are working with.
     let counter3=0;
+    let counter4=0;
     // console.log(divId, emptyDivId)
     for(let i=0; i<3;i++)
-   { for(let j=0; j<3;j++)
-    {
+   {    for(let j=0; j<3;j++)
+        {
          counter3++
-         
+         console.log(globalArray[counter3])
+          //count for the array succes when comparing to the global position and verify if won.
          console.log(id)
-        if (`${i}-${j}`=== id)
+            if (`${i}-${j}`=== id)// This will look for the new id with the empty position in terms of i-j with a counter to find the new position.
             {
                 positionWith0= counter3;
-                console.log(positionWith0)
+                console.log(counter3)
             }
             else
               {};
-              
-    }   }
-   
+            const background= document.getElementById(`${i}-${j}`);
+             const backgroundPosition1= background.style.backgroundPosition;
+             console.log(backgroundPosition1);
+            
+             if(globalArray[counter3]=== backgroundPosition1)     
+            {
+                counter4++;
+                console.log(counter4);
+                if(counter4 === 8)
+                    {
+                        console.log("You win.")
+                    }
+            }
+             
+        }       
+    }  
+
+   //Add Compare if won function.
 }
 
+
+const buttonDiv = document.getElementById("selectdiv")
+buttonDiv.addEventListener("click", ()=>{
+    buttonDiv.textContent="Shuffle"
+    shuffle();
+    fixShuffleGrid();
+    if(numberOfMoves!=0)// If number of moves is not shuffled for the first time wont work
+        {
+            numberOfMoves++; //When you start to shuffle more than once it will count as a moves.
+            numberMoves.textContent= `Number of moves: ${numberOfMoves}`//Update new number of moves.
+        }
+})
 creatingGrid();
-shuffle();
-fixShuffleGrid();
+// shuffle();
+// fixShuffleGrid();
