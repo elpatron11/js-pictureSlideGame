@@ -19,6 +19,8 @@ button {
     align-content: center;
     margin: 1em;
     background-color: green;
+    color :black;
+    font-weight: bold;
 }
 
 #Labels {
@@ -46,3 +48,5 @@ body{
     flex-direction: column;
     padding:1em;
 }
+
+/* @media screen { 375px x 667} */
