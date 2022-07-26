@@ -1,5 +1,6 @@
 
 //Asign created divs and containers.
+
 const centerDiv=document.querySelector("#centerAlign");
 const root = document.querySelector("#wholeGrid");
 
@@ -18,6 +19,10 @@ let positionWith0= null;
 let numberOfMoves;
 let bestRecord; 
 
+let music = new Audio('./assets/background.mp3');
+
+
+
 // console.log(localStorage.answer)
 if(localStorage.record) //To store in local browser first ask if it exist, then we read it.
     bestRecord = JSON.parse(localStorage.record);
@@ -26,7 +31,7 @@ else
 
 if(localStorage.answer){
  numberOfMoves = JSON.parse(localStorage.answer);
- console.log(numberOfMoves)
+ 
 }
 else
    {  numberOfMoves=0;}
@@ -42,8 +47,8 @@ lastRecord.style.padding="1em"
 document.getElementById("Labels").appendChild(lastRecord);
 const dropDown = document.getElementById("picture");
 let picturePicked = dropDown.options[dropDown.selectedIndex].value;
+
 document.addEventListener("change", (e)=>{
-console.log(`e.target.value = ${ e.target.value }`);
 picturePicked = e.target.value;
 restartGame()
 })
@@ -63,7 +68,6 @@ function creatingGrid(){
     //This loop keeps track of the position we will set for each background image. So every time it runes the position 
     // well be changed by 100px to the left. The variable is horizontal.
         for(let j=0, horizontal= 0 ; j<3; j++, horizontal = horizontal -100){
-        
             count++;
             const row= document.createElement("div");  //we will create 3 divs rows inside each div column and later apply flex.
             row.id =`${i}-${j}`; // this will be the dinamic name for each grid so everyone has a different name.
@@ -120,7 +124,7 @@ function shuffle(){
     }
 
     for(let j=1; j<10;j++){
-        console.log(shuffleArray[j]) 
+        
         if (shuffleArray[j] === "0"){
                 positionWith0= j;
                 
@@ -136,7 +140,6 @@ function shuffle(){
     for(let i=0;i<3;i++)
         for(let j=0;j<3;j++){
             counter1++;
-            console.log(savedPosition[counter1]);
             const newcolumn = document.getElementById(`${i}-${j}`) ;//Here we just access the divs we created in creategrid function.
             newcolumn.style.backgroundPosition = shuffleArray[counter1]; //now we will add the new position to each div.
             if(shuffleArray[counter1] !== "0"){  //we need to make sure the empty div doesnt have the back image
@@ -151,7 +154,7 @@ function shuffle(){
 
              }
 
-             console.log(newcolumn.style.backgroundPosition)
+             
           } 
  }
 //   const buttonDiv = document.getElementById("selectdiv")
@@ -186,8 +189,11 @@ function shuffle(){
          if (swap){ swapAdjacentEmpty(capturedId, emptyElementId, capturedDiv, emptyElementIdX,emptyElementIdY);
             numberOfMoves++; // will start keeping track everytime you swap between divs.
             numberMoves.textContent= `Number of moves: ${numberOfMoves}` // This will update the label with number of moves.
-            console.log(numberOfMoves)
             localStorage.answer= JSON.stringify(numberOfMoves);
+            //Adding audio.
+            
+            const music3 = new Audio('./assets/slash.m4a');
+            music3.play();
          }  
  })
 //compares if the div selected by click is next to the empty grid so then it can sap or move it.
@@ -228,31 +234,48 @@ return swap; //
    {    for(let j=0; j<3;j++)
         {
          counter3++
-         console.log(globalArray[counter3])
-          //count for the array succes when comparing to the global position and verify if won.
-         console.log(id)
+                 //count for the array succes when comparing to the global position and verify if won.
             if (`${i}-${j}`=== id){// This will look for the new id with the empty position in terms of i-j with a counter to find the new position.
 
                 positionWith0= counter3;
-            }
+            }   
             else
               {};
             const background= document.getElementById(`${i}-${j}`);
              const backgroundPosition1= background.style.backgroundPosition;
-             console.log(backgroundPosition1);
+             
             
              if(globalArray[counter3]=== backgroundPosition1)
                 counter4++; //Counts all the image that are in the right position.
                 
                 if(counter4 === 8){
+                        counter4=0;
                         console.log("You win.")
+                        music.pause();
+                        const music2 = new Audio('./assets/Winsound.m4a');
+                        music2.play();
                         window.alert(`Congratulations after ${numberOfMoves} attempts you finally won`);
+                        bestRecord = JSON.parse(localStorage.record);
+                        numberOfMoves = JSON.parse(localStorage.answer);
                         if(bestRecord > numberOfMoves)
                         {
                             bestRecord = numberOfMoves;
+                            numberOfMoves=0;
                             lastRecord.textContent= `Best Record: ${bestRecord}`;
                             localStorage.answer= JSON.stringify(numberOfMoves);
-                            localStorage.record= JSON.stringify(numberOfMoves);
+                            localStorage.record= JSON.stringify(bestRecord);
+                            numberMoves.textContent= `Number of moves: ${numberOfMoves}`
+                            console.log(localStorage.record)
+                        }
+                        else if (bestRecord===0)
+                        {
+                            bestRecord = numberOfMoves;
+                            numberOfMoves=0;
+                            lastRecord.textContent= `Best Record: ${bestRecord}`;
+                            localStorage.answer= JSON.stringify(numberOfMoves);
+                            localStorage.record= JSON.stringify(bestRecord);
+                            numberMoves.textContent= `Number of moves: ${numberOfMoves}`
+                            console.log(bestRecord, numberOfMoves)
                             
                         }
                     }
@@ -267,6 +290,10 @@ buttonDiv.addEventListener("click", ()=>{
     buttonDiv.textContent="Shuffle"
     shuffle();
     fixShuffleGrid();
+    music.play();
+    music.loop ='true';
+    const music3 = new Audio('./assets/slash.m4a');
+    music3.play();
     if(numberOfMoves!=0){
             numberOfMoves++; //When you start to shuffle more than once it will count as a moves.
             numberMoves.textContent= `Number of moves: ${numberOfMoves}`//Update new number of moves.
@@ -292,6 +319,7 @@ function restartGame() //This function resets all global variables to default an
     numberMoves.textContent= `Number of moves: ${numberOfMoves}`//Update new number of moves to 0 in browser. Since we are restarting
     buttonDiv.textContent="Start Over"; // Change the display test of the shuffle button to "Start Over" once its clicked.
     localStorage.answer= JSON.stringify(numberOfMoves);
+    music.play();
 }
 
 

@@ -46,7 +46,18 @@ body{
     display: flex;
     align-content: center;
     flex-direction: column;
+    margin:1em;
     padding:1em;
 }
 
-/* @media screen { 375px x 667} */
+@media screen and (max-width: 600px) {
+    #Labels {
+        display:flex;
+        align-items: center;
+        padding: 1em;
+        flex-direction: row;
+        background-color: aqua;
+        padding-top: 0.5em;
+        margin: 0.25em;
+    }
+}
