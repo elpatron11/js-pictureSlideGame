@@ -21,9 +21,6 @@ let bestRecord;
 
 let music = new Audio('./assets/background.mp3');
 
-
-
-// console.log(localStorage.answer)
 if(localStorage.record) //To store in local browser first ask if it exist, then we read it.
     bestRecord = JSON.parse(localStorage.record);
 else
@@ -115,13 +112,11 @@ function shuffle(){
              randomnum= Math.floor(Math.random()*10);
              randomnum2= Math.floor(Math.random()*10); //this generates 2 different numbers from 1-9 to use as index.
         }
-        // console.log(randomnum);
-        // console.log(randomnum2);
-
+       
         //Now we will swap two background image position in the same array to change its value and save in the shuffle array.
         [shuffleArray[randomnum], shuffleArray[randomnum2]] = [shuffleArray[randomnum2], shuffleArray[randomnum]];
         [savedPosition[randomnum], savedPosition[randomnum2]] = [savedPosition[randomnum2], savedPosition[randomnum]];
-        // console.log(savedPosition[randomnum],savedPosition[randomnum2] )
+        
     }
 
     for(let j=1; j<10;j++){
@@ -132,7 +127,7 @@ function shuffle(){
             }
            
     }   
-        // shuffleArray[9]="200px 200px"
+     
 }
 
 //Here we will create the new grid using the positions from the shuffle array(using shuffle function first) instead.
@@ -158,7 +153,7 @@ function shuffle(){
              
           } 
  }
-//   const buttonDiv = document.getElementById("selectdiv")
+
   document.addEventListener("click", (e)=>{
         const capturedDiv = e.target.style.backgroundPosition;
         const capturedId = e.target.id;
@@ -171,8 +166,7 @@ function shuffle(){
         const  capturedIdX = parseInt(capturedIdXS);
         const  capturedIdY = parseInt(capturedIdYS);
          
-        // console.log(typeof(capturedIdXS) , capturedIdYS,capturedIdX, typeof(capturedIdY ))
-
+        
         for(let i=0;i<3;i++)
            { for(let j=0;j<3;j++)
                 {   
