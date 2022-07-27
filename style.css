@@ -4,8 +4,9 @@ background-color: #cccccc;
 } */
 
 h1 {
-    color:rgb(18, 12, 73);
+    color:Red;
     text-align: center;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 button {
@@ -36,11 +37,11 @@ button {
         /* border: 1em bold red; */
         border-radius: round;
 }
-/* 
-#wholeGrid{
 
-            padding-top: -500px;
-} */
+#wholeGrid{
+            background-color: white;
+           
+}
 
 body{
     display: flex;
@@ -48,7 +49,27 @@ body{
     flex-direction: column;
     margin:1em;
     padding:1em;
+    background-color: black;
 }
+
+p{
+    color: white;
+    display:flex;
+    flex-direction: row;
+    width:300px;
+    margin: 1em;
+    /* align-items: flex-start;
+    justify-content: first baseline; */
+}
+
+#centerAlign {
+    
+    flex-direction: row;
+    padding: 1em;
+}
+
+
+
 
 @media screen and (max-width: 600px) {
     #Labels {
@@ -56,7 +77,7 @@ body{
         align-items: center;
         padding: 1em;
         flex-direction: row;
-        background-color: aqua;
+        background-color: red;
         padding-top: 0.5em;
         margin: 0.25em;
     }

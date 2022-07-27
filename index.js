@@ -42,7 +42,7 @@ numberMoves.style.padding="1em"
 document.getElementById("Labels").appendChild(numberMoves);
 
 const lastRecord = document.createElement("label")
-lastRecord.textContent= `Best Record: ${bestRecord}`
+lastRecord.textContent= `Best Score: ${bestRecord}`
 lastRecord.style.padding="1em"
 document.getElementById("Labels").appendChild(lastRecord);
 const dropDown = document.getElementById("picture");
@@ -54,8 +54,9 @@ restartGame()
 })
 
 
+
 //Creates the columns and rows using loops, assigns a dinamic name to each column and row.
-creatingGrid();
+
 function creatingGrid(){
     // Create matrix for grids
     for(let i=0, vertical=0; i<3; i++ , vertical= vertical-100){
@@ -192,8 +193,8 @@ function shuffle(){
             localStorage.answer= JSON.stringify(numberOfMoves);
             //Adding audio.
             
-            // const music3 = new Audio('./assets/slash.m4a');
-            // music3.play();
+            const music3 = new Audio('./assets/slash.m4a');
+            music3.play();
          }  
  })
 //compares if the div selected by click is next to the empty grid so then it can sap or move it.
@@ -252,8 +253,8 @@ return swap; //
                         counter4=0;
                         console.log("You win.")
                         music.pause();
-                        // const music2 = new Audio('./assets/Winsound.m4a');
-                        // music2.play();
+                        const music2 = new Audio('./assets/Winsound.m4a');
+                        music2.play();
                         window.alert(`Congratulations after ${numberOfMoves} attempts you finally won`);
                         bestRecord = JSON.parse(localStorage.record);
                         numberOfMoves = JSON.parse(localStorage.answer);
@@ -261,7 +262,7 @@ return swap; //
                         {
                             bestRecord = numberOfMoves;
                             numberOfMoves=0;
-                            lastRecord.textContent= `Best Record: ${bestRecord}`;
+                            lastRecord.textContent= `Best Score: ${bestRecord}`;
                             localStorage.answer= JSON.stringify(numberOfMoves);
                             localStorage.record= JSON.stringify(bestRecord);
                             numberMoves.textContent= `Number of moves: ${numberOfMoves}`
@@ -271,13 +272,14 @@ return swap; //
                         {
                             bestRecord = numberOfMoves;
                             numberOfMoves=0;
-                            lastRecord.textContent= `Best Record: ${bestRecord}`;
+                            lastRecord.textContent= `Best Score: ${bestRecord}`;
                             localStorage.answer= JSON.stringify(numberOfMoves);
                             localStorage.record= JSON.stringify(bestRecord);
                             numberMoves.textContent= `Number of moves: ${numberOfMoves}`
                             
                             
                         }
+                        restartGame();
                     }
              
             }       
@@ -292,8 +294,8 @@ buttonDiv.addEventListener("click", ()=>{
     fixShuffleGrid();
     music.play();
     music.loop ='true';
-    // const music3 = new Audio('./assets/slash.m4a');
-    // music3.play();
+    const music3 = new Audio('./assets/slash.m4a');
+    music3.play();
     if(numberOfMoves!=0){
             numberOfMoves++; //When you start to shuffle more than once it will count as a moves.
             numberMoves.textContent= `Number of moves: ${numberOfMoves}`//Update new number of moves.
@@ -322,5 +324,6 @@ function restartGame() //This function resets all global variables to default an
     music.play();
 }
 
+creatingGrid();
 
     
