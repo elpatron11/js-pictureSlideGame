@@ -95,7 +95,7 @@ function creatingGrid(){
         shuffleArray[count] =globalArray[count]
         // console.log(vertical,horizontal);
         
-        console.log(globalArray[count])
+        
         }
     }
 
@@ -192,25 +192,25 @@ function shuffle(){
             localStorage.answer= JSON.stringify(numberOfMoves);
             //Adding audio.
             
-            const music3 = new Audio('./assets/slash.m4a');
-            music3.play();
+            // const music3 = new Audio('./assets/slash.m4a');
+            // music3.play();
          }  
  })
 //compares if the div selected by click is next to the empty grid so then it can sap or move it.
 function compareIfAdjacentToEmpty(x ,y, emptyX, emptyY){
     let swap =false; 
    if(x+1 === emptyX && y===emptyY  ) //This checks for the adjacent divs. 
-        { console.log("move to the right");
+        {
             swap=true;
     }
    else if(x-1 === emptyX && y===emptyY  )
-            {console.log("move to the left");
+            {
         swap=true;}
     else if(x=== emptyX && y+1===emptyY  )
-            {console.log("move down");
+            {
         swap=true;    }
     else if(x === emptyX && y-1===emptyY  )
-            {console.log("move to the up");
+            {
         swap=true;       }
 
 return swap; //
@@ -252,8 +252,8 @@ return swap; //
                         counter4=0;
                         console.log("You win.")
                         music.pause();
-                        const music2 = new Audio('./assets/Winsound.m4a');
-                        music2.play();
+                        // const music2 = new Audio('./assets/Winsound.m4a');
+                        // music2.play();
                         window.alert(`Congratulations after ${numberOfMoves} attempts you finally won`);
                         bestRecord = JSON.parse(localStorage.record);
                         numberOfMoves = JSON.parse(localStorage.answer);
@@ -265,7 +265,7 @@ return swap; //
                             localStorage.answer= JSON.stringify(numberOfMoves);
                             localStorage.record= JSON.stringify(bestRecord);
                             numberMoves.textContent= `Number of moves: ${numberOfMoves}`
-                            console.log(localStorage.record)
+                            
                         }
                         else if (bestRecord===0)
                         {
@@ -275,7 +275,7 @@ return swap; //
                             localStorage.answer= JSON.stringify(numberOfMoves);
                             localStorage.record= JSON.stringify(bestRecord);
                             numberMoves.textContent= `Number of moves: ${numberOfMoves}`
-                            console.log(bestRecord, numberOfMoves)
+                            
                             
                         }
                     }
@@ -292,8 +292,8 @@ buttonDiv.addEventListener("click", ()=>{
     fixShuffleGrid();
     music.play();
     music.loop ='true';
-    const music3 = new Audio('./assets/slash.m4a');
-    music3.play();
+    // const music3 = new Audio('./assets/slash.m4a');
+    // music3.play();
     if(numberOfMoves!=0){
             numberOfMoves++; //When you start to shuffle more than once it will count as a moves.
             numberMoves.textContent= `Number of moves: ${numberOfMoves}`//Update new number of moves.
