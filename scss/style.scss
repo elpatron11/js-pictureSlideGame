@@ -1,0 +1,48 @@
+@import "config";
+@import "btnconfig";
+
+h1  {
+    color: $fontcolor;
+    text-align: center;
+    font-family:  $ftype;
+     
+}
+
+#Labels {
+
+    display: flex;
+
+    padding: 1em;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    /* margin: 50px; */
+    background-color: $navcolor;
+    /* border: 1em bold red; */
+    border-radius: round;
+}
+
+body {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    margin: 1em;
+    padding: 1em;
+    background-color: black;
+}
+
+p {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    margin: 1em;
+    /* align-items: flex-start;
+    justify-content: first baseline; */
+}
+
+#centerAlign {
+
+    flex-direction: row;
+    padding: 1em;
+}

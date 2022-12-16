@@ -21,6 +21,8 @@ let bestRecord;
 
 let music = new Audio('./assets/background.mp3');
 
+
+
 if(localStorage.record) //To store in local browser first ask if it exist, then we read it.
     bestRecord = JSON.parse(localStorage.record);
 else
@@ -154,7 +156,7 @@ function shuffle(){
           } 
  }
 
-  document.addEventListener("click", (e)=>{
+         document.addEventListener("click", (e)=>{
         const capturedDiv = e.target.style.backgroundPosition;
         const capturedId = e.target.id;
         let emptyElementIdX;
@@ -273,6 +275,7 @@ return swap; //
                             
                             
                         }
+                        
                         restartGame();
                     }
              
